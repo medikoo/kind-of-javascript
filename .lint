@@ -1,0 +1,24 @@
+@root
+
+module
+
+tabs
+indent 2
+maxlen 100
+
+ass
+nomen
+plusplus
+stupid
+vars
+
+predef+ console
+
+./server
+predef+ __dirname
+
+./client/lib/preload-images.js
+predef+ document, Image
+
+./client/index.js
+predef+ bespoke, document, window

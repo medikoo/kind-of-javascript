@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "name": "kind-of-javascript",
+  "version": "1.0.0",
+  "description": "Kind Of JavaScript (October 2016, WarsawJS presentation)",
+  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/medikoo/kind-of-javascript.git"
+  },
+  "dependencies": {
+    "bespoke": "^1.1",
+    "bespoke-classes": "1",
+    "bespoke-history": "^0.2.1",
+    "bespoke-keys": "^1.1",
+    "bespoke-notes": "^2.0.1",
+    "bespoke-progress": "1",
+    "bespoke-scale": "git://github.com/medikoo/bespoke-scale.git#reread-slide-size",
+    "bespoke-substeps": "^0.2.2",
+    "bespoke-sync": "^0.2.1",
+    "bespoke-touch": "1",
+    "connect": "^3.5",
+    "es5-ext": "^0.10.12",
+    "deferred": "^0.7.5",
+    "highlight.js": "^9.7",
+    "memoizee": "^0.4.1",
+    "st": "^1.2",
+    "webmake": "^0.3.40"
+  },
+  "devDependencies": {
+    "webmake-middleware": "^0.1.2"
+  },
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "licence": "MIT"
+}
