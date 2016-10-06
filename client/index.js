@@ -45,12 +45,15 @@ window.deck = bespoke.from('article', plugins);
 require('./lib/preload-images');
 
 // Log total number of slides
-console.log("Total slides:", container.children.length);
+var slidesCount = Array.prototype.filter.call(container.children, function (el) {
+	return (el.nodeName.toLowerCase() === 'section');
+}).length;
+console.log("Total slides:", slidesCount);
 // if (env.dev) {
 // 	countP = document.body.appendChild(document.createElement('p'));
 // 	countP.style.position = 'absolute';
 // 	countP.style.fontSize = '16px';
 // 	countP.style.bottom = '20px';
 // 	countP.style.right = '20px';
-// 	countP.innerHTML = "[" + container.children.length + "]";
+// 	countP.innerHTML = "[" + slidesCount + "]";
 // }
