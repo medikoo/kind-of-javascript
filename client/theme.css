@@ -5,14 +5,7 @@ html {
 	font-size: 18px;
 
 	color: #a44654;
-	background: #ffffff; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #fffceb 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#fffceb)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%); /* IE10+ */
-	background: radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fffceb',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	background: radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%);
 	-webkit-font-smoothing: antialiased;
 }
 .bespoke-slide {
@@ -165,8 +158,6 @@ p.links a { display: inline-block; }
 p.links img { vertical-align: middle; }
 pre code.hljs {
 	background: rgba(255, 255, 255, 0.97);
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
 	border-radius: 4px;
 	padding-top: 0.2em;
 	padding-bottom: 0.5em;
@@ -192,14 +183,8 @@ p.footer { font-size: 22px; text-align: center; margin-top: 56px; }
 a, a:link {
 	text-decoration: none;
 
-	-webkit-transition: 0.3s;
-	-moz-transition:    0.3s;
-	-ms-transition:     0.3s;
-	-o-transition:      0.3s;
 	transition:         0.3s;
 
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
 	border-radius: 4px;
 
 	padding: 0 3px;
