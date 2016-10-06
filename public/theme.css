@@ -4,15 +4,15 @@ html {
 	font-family: open sans, helvetica, arial, sans-serif;
 	font-size: 18px;
 
- color: #006399;
-background: #f0f9ff; /* Old browsers */
-background: -moz-radial-gradient(center, ellipse cover, #f0f9ff 0%, #d6f0ff 100%); /* FF3.6+ */
-background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#f0f9ff), color-stop(100%,#d6f0ff)); /* Chrome,Safari4+ */
-background: -webkit-radial-gradient(center, ellipse cover, #f0f9ff 0%,#d6f0ff 100%); /* Chrome10+,Safari5.1+ */
-background: -o-radial-gradient(center, ellipse cover, #f0f9ff 0%,#d6f0ff 100%); /* Opera 12+ */
-background: -ms-radial-gradient(center, ellipse cover, #f0f9ff 0%,#d6f0ff 100%); /* IE10+ */
-background: radial-gradient(center, ellipse cover, #f0f9ff 0%,#d6f0ff 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#d6f0ff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+ color: #a44654;
+background: #ffffff; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #fffceb 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#fffceb)); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%); /* IE10+ */
+background: radial-gradient(center, ellipse cover, #ffffff 0%,#fffceb 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fffceb',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 -webkit-font-smoothing: antialiased;
 }
 h1.h0 {
@@ -27,7 +27,7 @@ h1, h2, p.footer {
 	/* text-shadow: -1px -1px 2px rgba(0, 40, 97, 0.5); */
 }
 article.bespoke-parent.green {
-	background: #00f3a5;
+	background: #3b3b3b;
 }
 article.bespoke-parent.white {
 	background: #fff;
@@ -36,7 +36,7 @@ article.bespoke-parent.white {
 	background: #00c284;
 }
 h2, h3 {
-	color: #006399;
+	color: #3b3b3b;
 }
 a, a.black, a:link {
 	color: rgba(29, 110, 160, 0.7);
@@ -49,7 +49,7 @@ p a {
 	text-shadow: none;
 }
 p, ul, ol {
-	color: #1D6EA0;
+	color: #3b3b3b;
 }
 p.img { text-align: center; margin-bottom: 0; }
 img.diagram {
