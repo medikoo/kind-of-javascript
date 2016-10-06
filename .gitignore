@@ -3,5 +3,6 @@
 /npm-debug.log
 /.lintcache
 /public/main.js
+/public/theme.css
 /env.json
 /env.js

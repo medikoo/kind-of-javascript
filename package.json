@@ -9,6 +9,7 @@
     "url": "git://github.com/medikoo/kind-of-javascript.git"
   },
   "dependencies": {
+    "autoprefixer": "^6.5",
     "bespoke": "^1.1",
     "bespoke-classes": "1",
     "bespoke-history": "^0.2.1",
@@ -21,6 +22,7 @@
     "bespoke-touch": "1",
     "connect": "^3.5",
     "es5-ext": "^0.10.12",
+    "fs2": "^0.2.3",
     "deferred": "^0.7.5",
     "highlight.js": "^9.7",
     "memoizee": "^0.4.1",

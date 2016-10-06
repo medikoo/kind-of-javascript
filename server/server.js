@@ -2,9 +2,9 @@
 
 var endsWith     = require('es5-ext/string/#/ends-with')
   , startsWith   = require('es5-ext/string/#/starts-with')
-  , promisify    = require('deferred').promisify
   , memoize      = require('memoizee')
-  , readFile     = promisify(require('fs').readFile)
+  , readFile     = require('fs2/read-file')
+  , autoprefixer = require('autoprefixer')
   , createServer = require('http').createServer
   , resolve      = require('path').resolve
   , parse        = require('url').parse
@@ -13,6 +13,7 @@ var endsWith     = require('es5-ext/string/#/ends-with')
 
   , staticsPath = resolve(__dirname, '../public')
   , programPath = resolve(__dirname, '../client/index.js')
+  , cssPath = resolve(__dirname, '../client/theme.css')
   , readIndex;
 
 readIndex = function (root) {
@@ -33,6 +34,21 @@ module.exports = function (env) {
 		webmakeOpts = {};
 		webmakeOpts[root + 'main.js'] = programPath;
 		app.use(require('webmake-middleware')(webmakeOpts, { log: true }));
+		app.use(function (req, res, next) {
+			var pathname = parse(req.url).pathname;
+			if (pathname !== '/theme.css') {
+				next();
+				return;
+			}
+			res.writeHead(200, {
+				'Content-Type': 'text/css; charset=utf-8',
+				// Do not cache generated bundle
+				'Cache-Control': 'no-cache'
+			});
+			readFile(cssPath).done(function (cssText) {
+				res.end(autoprefixer.process(cssText).css);
+			});
+		});
 	}
 	if (env.sync) {
 		app.use(require('bespoke-sync/server')({
