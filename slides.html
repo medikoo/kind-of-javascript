@@ -83,9 +83,9 @@
 		</ul>
 	</div>
 	<aside>
-		<p>It's common that language needs some form to express "lack of value"</p>
-		<p>Still JavaScript (contrary to most of other languages) doesn't crash when you try to access non existent property, or doesn't provide arguments to function.</p>
-		<p>Therefore it ended with two "non-value" values: intentional and other</p>
+		<p>It's common that language needs some form to express "lack of value", why in JavaScript it's represented with two values?</p>
+		<p class="substep" data-order="1">JavaScript (contrary to most of other languages) doesn't crash when you try to access non existent property, or doesn't provide arguments to function, in such case <code>undefined</code> is returned/passed to receiver</p>
+		<p class="substep" data-order="1">As there was a need to differentiate such cases from ones where we want to intentionally mark some property as having "no-value", an alternative "no-value" <code>null</code> was introduced</p>
 	</aside>
 </section>
 
@@ -100,16 +100,13 @@
 		</ul>
 		<hr class="substep" data-order="2" />
 		<ul>
-			<li class="substep" data-order="2">Don't have properties or methods</li>
+			<li class="substep" data-order="2">Doesn't have properties or methods</li>
 			<li class="substep" data-order="3">Has alternative object representation</li>
 			<li class="substep" data-order="4">It's prototype based via implied auto object-boxing</li>
 		</ul>
 	</div>
 	<aside>
-		<p>What values qualify as primitive values?</p>
-		<hr class="substep" data-order="2" />
-		<p class="substep" data-order="2">They're based on prototype objects. e.g. <i>string primitive</i> derives from <code>String.prototype</code> object</p>
-		<p class="substep" data-order="4">Any property write or access has no effect, it doesn't crash, it just results with no side-effects and returns <code>undefined</code> in all cases</p>
+		<p>Which values qualify as primitive values?</p>
 	</aside>
 </section>
 
@@ -139,7 +136,7 @@ str.foo; // undefined</code></pre>
 		<p class="substep"><b>... everything else ...</b></p>
 		<hr class="substep" data-order="2" />
 		<ul>
-			<li class="substep" data-order="2" >Unrestricted property host, unless limited by <code>Object.freeze</code>, <code>Object.preventExtensions</code> or <code>Object.seal</code></li>
+			<li class="substep" data-order="2" >Unrestricted property host.<br />Unless limited by <code>Object.freeze</code>, <code>Object.preventExtensions</code> or <code>Object.seal</code></li>
 			<li class="substep" data-order="3">Prototype based</li>
 			<li class="substep" data-order="4">Extensible (can serve as prototype for other objects)</li>
 		</ul>
@@ -152,8 +149,7 @@ Object.getPrototypeOf(extObject); // object
 extObject.foo; // 'bar';</code></pre>
 	</div>
 	<aside>
-		<p>What values qualify as Objects?</p>
-		<p class="substep" data-order="1">- Anything but primitives</p>
+		<p>Which values qualify as Objects?</p>
 	</aside>
 </section>
 
@@ -166,7 +162,7 @@ extObject.foo; // 'bar';</code></pre>
 }</code></pre>
 		<h2 class="substep">Is object?</h2>
 		<pre class="substep" data-order="2"><code>var isObject = function (value) {
-  return value &&
+  return (value !== null) &&
     ((typeof value === 'object') ||
       (typeof value === 'function'));
 }</code></pre>
@@ -174,7 +170,7 @@ extObject.foo; // 'bar';</code></pre>
 	<aside>
 		<p class="substep" data-order="1"><code>value == null</code> is the only exception when using <b>sloppy</b> equality operator could be recommended. This expression will match both <code>undefined</code> and <code>null</code></p>
 		<hr  class="substep" data-order="2" />
-		<p class="substep" data-order="2">As <code>typeof value === 'object'</code> matches also <code>null</code>, the check is preceded with confirmation that <code>value</code> is truthy</p>
+		<p class="substep" data-order="2">As <code>typeof value === 'object'</code> matches also <code>null</code>, the check is preceded with confirmation that <code>value</code> is indeed not <code>null</code></p>
 	</aside>
 </section>
 
@@ -184,10 +180,10 @@ extObject.foo; // 'bar';</code></pre>
 		<hr />
 	</div>
 	<aside>
-		<p>JavaScript is a dynamic language where type coercion (in case of primitives) and duck typing (in case of objects) is used extensively</p>
-		<p><b>Play extensive role in JavaScript internals handling</b></p>
-		<p>But often are not reflected in user-land utilities and libraries</p>
-		<p>In further part of presentation I'll focus on all types that fall into category</p>
+		<p>JavaScript is a dynamic language where type coercion (in case of primitives) and duck typing (in case of objects) play extensive role in internals handling</p>
+		<p>Still that's often are not reflected in user-land utilities and libraries</p>
+		<hr />
+		<p>In further part of presentation I'll focus on all coercion and duck-typing mechanisms implied natively</p>
 	</aside>
 </section>
 
@@ -258,8 +254,7 @@ extObject.foo; // 'bar';</code></pre>
 	</div>
 	<aside>
 		<p>Which object values are coercible to numbers?</p>
-		<p>Before ES2015 (and introduction of <code>Symbol</code>) specification didn't provide us with non-coercible values.</p>
-		<p>We're also capable to create non-coercible values on our own</p>
+		<p class="substep" data-order="1">Before ES2015 (and introduction of <code>Symbol</code>) specification didn't provide us with non-coercible values.</p>
 	</aside>
 </section>
 
@@ -306,9 +301,9 @@ extObject.foo; // 'bar';</code></pre>
 	</div>
 	<aside>
 		<p>Which values are coercible to objects?</p>
-		<p>All but ones we categorized as <b>non-values</b></p>
-		<p>Interestingly while we're not allowed to create <i>object</i> representations of symbol's via <code>new Symbol()</code> construct, the internal <code>toObject</code> algorithm (accessible through <code>Object</code> constructor) is free of that restriction.</p>
-		<p>Important to note is that <code>Object(value)</code> constructor function, doesn't play 1:1 coercion role, as in case of non-value variants it will return us newly craeted objects.x</p>
+		<p class="substep" data-order="1">All but ones we categorized as <b>non-values</b></p>
+		<p class="substep" data-order="1">Interestingly while we're not allowed to create <i>object</i> representations of symbol's via <code>new Symbol()</code> construct, the internal <code>toObject</code> algorithm (accessible through <code>Object</code> constructor) is free of that restriction.</p>
+		<p class="substep" data-order="1">Important to note is that <code>Object(value)</code> constructor function, doesn't play 1:1 coercion role, as in case of non-value variants it will return us newly craeted objects.</p>
 	</aside>
 </section>
 
@@ -347,7 +342,7 @@ var arrayLike = toObject(value);
 var length = normalizeLength(toNumber(arrayLike.length));</pre></code>
 		<p class="substep" data-order="2">So in native implementation scope it's not much more than:</p>
 		<pre class="substep" data-order="2"><code>function isArrayLike(value) { return !isNonValue(value); }</pre></code>
-		<p class="substep" data-order="2">Still it's wise to also demand a <code>value.length</code> to be a valid number</p>
+		<p class="substep" data-order="2">Still (in our API's) it's wise to also demand a <code>value.length</code> to be a valid (and within range) number</p>
 	</div>
 	<aside>
 	</aside>
@@ -360,7 +355,7 @@ var length = normalizeLength(toNumber(arrayLike.length));</pre></code>
 		<h3 class="substep" data-order="1">Iterable</h3>
 		<p class="substep" data-order="1">Any object exposing a <code>[Symbol.iterator]</code> method (which is expected to return an <b>iterator</b>) is accepted as <b>iterable</b></p>
 		<h3 class="substep" data-order="2">Iterator</h3>
-		<p class="substep" data-order="2">Any object exposing a <code>next</code> method is accepted as <b>iterator</b></p>
+		<p class="substep" data-order="2">Any object exposing a <code>next</code> method (which is expected to return an object coercible value) is accepted as <b>iterator</b></p>
 		<pre class="substep" data-order="3"><code>var iterable = ['foo', 'bar'];
 var iterator = iterable[Symbol.iterator]();
 iterator.next(); // { done: false, value: 'foo' }
@@ -394,9 +389,9 @@ iterator.next(); // { done: true, value: undefined }</code></pre>
 		<h1>Array-Like & Iterable</h1>
 		<p>In API's we write we should support both: <b>array-like</b>'s and <b>iterable</b>'s</p>
 		<p>How to achieve it cleanly?</p>
-		<p class="substep" data-order="1">Use <b><code>Array.from</code></b>:</p>
+		<p class="substep" data-order="1">Rely on <b><code>Array.from</code></b>:</p>
 		<pre class="substep" data-order="1"><code>var arrayLikeAndIterable = Array.from(arrayLikeOrIterable)</code></pre>
-		<p class="substep" data-order="2">Additionally we can <b>iterate</b> and <b>map</b> input <i>list</i> with <code>Array.form</code></p>
+		<p class="substep" data-order="2">Additionally we can <b>iterate</b> and <b>map</b> input <i>list</i> with <code>Array.from</code></p>
 		<pre class="substep" data-order="2"><code>var mappedInput = Array.from(input, function (value, index) {
   // map value on spot
 });</code></pre>
@@ -453,7 +448,7 @@ Date.prototype.getDate.call(dateLike); // 8</pre></code>
 <section data-bespoke-id="callable">
 	<div class="content">
 		<h1>Callable (side case)</h1>
-		<p>Some browsers in its host API's exposed callable non <code>Function</code> based objects</p>
+		<p>Some browsers in its host API's exposed callable non <code>Function</code> based callable objects</p>
 		<p>e.g. in old version of Safari:</p>
 		<pre><code>typeof element.childNodes; // 'function'
 element.childNodes(1) === element.childNodes[1]</code></pre>
