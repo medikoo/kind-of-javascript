@@ -10,7 +10,9 @@ html {
 }
 .bespoke-slide {
 	margin-top: -380px;
-	padding: 80px;
+	align-items: stretch;
+	padding: 20px 40px;
+	border: 1px solid;
 }
 h1.h0 {
 	font-size: 112px;
@@ -42,11 +44,11 @@ a:link:hover {
 p a {
 	text-shadow: none;
 }
-p, ul, ol {
+p, ul, ol, td, th {
 	color: #3b3b3b;
 }
 p.img { text-align: center; margin-bottom: 0; }
-code .code-error { color: red; }
+code .code-error, code .code-error .hljs-keyword { color: red; }
 img.diagram {
 	background: rgba(255, 255, 255, 0.5);
 	padding: 40px;
@@ -75,14 +77,16 @@ div.content.serialize h1 + h2 {
 }
 h1 {
 	font-size: 72px;
-	margin-bottom: 28px;
+	margin-bottom: 12px;
 	text-align: left;
+}
+h1 code {
+	font-size: 60px;
 }
 h2 {
 	font-size: 48px;
 	margin-bottom: 28px;
 	font-weight: normal;
-	font-style: italic;
 	text-align: left;
 }
 h2 code {
@@ -93,7 +97,6 @@ h3 {
 	margin-bottom: 20px;
 	font-weight: bold;
 	text-align: left;
-	margin-left: 20px;
 }
 span.crash, span.crash * { color: red; }
 span.warning, span.warning * { color: yellow; }
@@ -116,7 +119,7 @@ p, ul, ol, table {
 	font-size: 24px;
 }
 table td, table th {
-	text-align: center;
+	text-align: left;
 }
 table {
 	border-collapse: collapse;
@@ -150,6 +153,9 @@ li a img {
 ul p, ol p {
 	margin: 0 0 5px;
 }
+ul p + pre, ol p + pre {
+	margin-top: 15px;
+}
 p.note { font-style: italic; }
 p.larger { font-size: 44px; }
 p.lone, p.links { text-align: center;}
@@ -162,7 +168,7 @@ pre code.hljs {
 	padding-top: 0.2em;
 	padding-bottom: 0.5em;
 	-webkit-font-smoothing: antialiased;
-	font-size: 24px;
+	font-size: 18px;
 	color: #000;
 }
 
@@ -233,17 +239,23 @@ div#cover p.links + p img {
 /* Value kinds */
 .value-kinds {
 	border-collapse: separate;
-	margin: -2em auto 0;
+	color: #a44654;
+	margin: 0 auto;
 }
 .value-kinds th {
 	background: none;
 	border: 0;
+	text-align: center;
+	color: #a44654;
+	font-size: 34px;
 }
 .value-kinds td {
 	font-size: 72px;
 	font-family: "nimbus-sans-condensed",sans-serif;
 	font-weight: bold;
 	border: 0;
+	text-align: center;
+	color: #a44654;
 }
 .value-kinds-range {
 	display: block;
@@ -252,4 +264,8 @@ div#cover p.links + p img {
 	margin-top: 10px;
 	border: 2px solid #808080;
 	border-bottom: 0;
+}
+
+.operands-table {
+	font-size: 16px;
 }

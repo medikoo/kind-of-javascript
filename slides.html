@@ -13,13 +13,421 @@
 	</div>
 
 	<aside>
-		<p>Insight into some concepts of reactive web application architecture</p>
+		<p>An introduction into JavaScript's dynamic type system</p>
 		<hr />
 		<p>Made with <a href="http://markdalgleish.com/projects/bespoke.js/">Bespoke.js</a> engine developed by <a href="https://twitter.com/markdalgleish">Mark Dalgleish</a></p>
 		<p>See <a href="https://github.com/medikoo/kind-of-javascript">Github</a> for a source code of this presentation, and instructions on how to run it locally</p>
 		<hr />
 		<p><b>Use cursors (← →) for navigation<br />Swipe when on touch device</b></p>
 		<p>You can toggle presentation notes by pressing the 'n' key</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="object-value-kinds">
+	<div class="content">
+		<table class="value-kinds">
+			<thead class="substep" data-order="1"><tr><th colspan="2">Primitive<span class="value-kinds-range"></span></th><th>Object<span class="value-kinds-range"></span></th></tr></thead>
+			<tbody><tr><td>Absent,</td><td>Immutable,</td><td>Mutable</td></tr></tbody>
+		</table>
+	</div>
+	<aside>
+		<p>In JavaScript we can seclude three kinds of object values</p>
+		<ul>
+			<li>Absent: Representing lack of value</li>
+			<li>Immutable: Not modifiable in any way</li>
+			<li>Mutable: Extensible and modifiable</li>
+		</ul>
+		<p>Can you tell which JS values belong to which group?</p>
+		<hr class="substep" data-order="1" />
+		<p class="substep" data-order="1">Available ECMAScript documentations usually qualify two general data types (Primitive and Object), still it's wise to recognize two different kinds within "Primitive" scope</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="absent-kind">
+	<div class="content">
+		<h1>Absent</h1>
+		<ul class="substep" data-order="1">
+			<li><b><code>undefined</code></b></li>
+			<li><b><code>null</code></b></li>
+		</ul>
+		<hr class="substep" data-order="2" />
+		<ul>
+			<li class="substep" data-order="2">Prototype-less</li>
+			<li class="substep">
+				<p>Cannot host any properties</p>
+				<pre class="substep"><code>absentValue.foo = 'bar' <span class="code-error substep" data-order="3">TypeError</span>
+<span class="substep">absentValue.foo <span class="code-error">TypeError</span></span></code></pre>
+			</li>
+		</ul>
+	</div>
+	<aside>
+		<p>What values qualify to "Absent" kind?</p>
+		<hr class="substep" data-order="1" />
+		<p class="substep" data-order="2">Contrary to any other values they're not backed with any prototype object</p>
+		<p class="substep" data-order="3">Any property write or access will result with an exception</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="two-absents">
+	<div class="content">
+		<h1>Why two<br /><code>undefined</code> and <code>null</code>?</h1>
+		<p class="substep" data-order="1"><code>undefined</code>: Most likely not provided/set, or deleted</p>
+		<p class="substep" data-order="1"><code>null</code>: Intentionally absent</p>
+		<hr class="substep" data-order="2" />
+		<h3 class="substep" data-order="2">Good practice:</h3>
+		<ul class="substep" data-order="2">
+			<li>
+				<p>Set intentionally empty values with <code>null</code></p>
+				<pre><code>obj.prop = null</code></pre>
+			</li>
+			<li>
+				<p>Expose <code>undefined</code> only when you intend to delete a property</p>
+				<pre><code>delete obj.prop</code></pre>
+			</li>
+		</ul>
+	</div>
+	<aside class="substep" data-order="1">
+		<p>It's common that language needs some form to express "lack of value"</p>
+		<p>Still JavaScript (contrary to most of other languages) doesn't crash when you try to access not existent property of an object or doesn't provide arguments to function.</p>
+		<p>Therefore it ended with two "absent" values: intentional and other</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="immutable-kind">
+	<div class="content">
+		<h1>Immutable</h1>
+		<ul class="substep" data-order="1">
+			<li><b>boolean primitives</b></li>
+			<li><b>string primitives</b></li>
+			<li><b>number primitives</b></li>
+			<li><b>symbol primitives</b> (ES2015+ only)</li>
+		</ul>
+		<hr class="substep" data-order="2" />
+		<ul>
+			<li class="substep" data-order="2">Prototype based</li>
+			<li class="substep" data-order="3">
+				<p>Hosts only implementation defined, immutable properties. Trying to get/set any new property has no effect</p>
+				<pre class="substep" data-order="4"><code>immutable.foo; // undefined
+<span class="substep">immutable.foo = 'bar'; // no effect
+immutable.foo; // undefined</span></code></pre>
+			</li>
+		</ul>
+	</div>
+	<aside>
+		<p>What values qualify as "Immutable"?</p>
+		<p class="substep" data-order="1">- All other primitives</p>
+		<hr class="substep" data-order="2" />
+		<p class="substep" data-order="2">They're based on prototype objects. e.g. <i>string primitive</i> derives from <code>String.prototype</code> object</p>
+		<p class="substep" data-order="4">Any property write or access has no effect, it doesn't crash, it just results with no side-effects and returns <code>undefined</code> in all cases</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="immutable-own-properties">
+	<div class="content">
+		<h1>Immutable</h1>
+		<h2>Implementation defined <b>own</b> properties</h2>
+		<ul class="substep" data-order="1">
+			<li><code>string.length</code></li>
+		</ul>
+		<p class="substep">All other properties/methods are not <b>own</b>, but derived from prototype object</p>
+	</div>
+	<aside>
+		<p class="substep" data-order="1">Across primitives there's only one implementation defined <b>own</b> property</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="mutable-kind">
+	<div class="content">
+		<h1>Mutable</h1>
+		<ul class="substep" data-order="1">
+			<li><b>... everything else ...</b></li>
+		</ul>
+		<hr class="substep" data-order="2" />
+		<ul>
+			<li class="substep" data-order="2">Prototype based</li>
+			<li class="substep" data-order="3">Extensible (can serve as prototype for other objects)</li>
+			<li class="substep" data-order="4">
+				<p>Unrestricted property host (unless limited by <code>Object.freeze</code>, <code>Object.preventExtensions</code> or <code>Object.seal</code>)</p>
+				<pre class="substep" data-order="4"><code>immutable.foo = 'bar';
+immutable.foo; // 'bar'</code></pre>
+			</li>
+		</ul>
+	</div>
+	<aside>
+		<p>What values qualify as "Mutable"?</p>
+		<p class="substep" data-order="1">- Anything but primitives</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="kind-detection">
+	<div class="content">
+		<h1>Value kind detection</h1>
+		<h2 class="substep">Is one of "absent" values ?</h2>
+		<pre class="substep" data-order="1"><code>var isAbsent = function (value) {
+  return value == null;
+}</code></pre>
+		<h2 class="substep">Is (Mutable) Object ?</h2>
+		<pre class="substep" data-order="2"><code>var isObject = function (value) {
+  return value &&
+    ((typeof value === 'object') ||
+      (typeof value === 'function'));
+}</code></pre>
+	</div>
+	<aside>
+		<p class="substep" data-order="1"><code>value == null</code> is the only exception when using <b>sloppy</b> equality operator could be recommended. This expression will match both <code>undefined</code> and <code>null</code></p>
+		<hr  class="substep" data-order="2" />
+		<p class="substep" data-order="2">As <code>typeof value === 'object'</code> matches also <code>null</code>, the check is preceded with confirmation that <code>value</code> is truthy</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="type-coercion">
+	<div class="content">
+		<h1>Type Coercion & Duck Typing</h1>
+		<p>Both play extensive role in JavaScript internals</p>
+		<p>But are usually not reflected in user-land utilities and libraries</p>
+	</div>
+	<aside>
+		<p>JavaScript is a dynamic language where type coercion (in case of primitives) and duck typing (in case of objects) is used extensively</p>
+		<p>In further part of presentation I'll focus on all types that fall into category</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="boolean-coercion">
+	<div class="content">
+		<h1>Boolean (coercion)</h1>
+		<p class="substep"><b>Every</b> value is boolean coercible</p>
+		<pre class="substep" data-order="1"><code>Boolean(value); // true, false?</code></pre>
+		<p class="substep" data-order="2">Values that coerce to <code>false</code> (falsy values):</p>
+		<ul class="substep" data-order="2">
+			<li><code>false</code> (obviously)</li>
+			<li><b><code>undefined</code></b></li>
+			<li><b><code>null</code></b></li>
+			<li><b><code>""</code></b></li>
+			<li><b><code>0</code></b></li>
+			<li><b><code>NaN</code></b></li>
+		</ul>
+		<p class="substep">Everything else coerces to <code>true</code></p>
+	</div>
+	<aside>
+		<p>Which object values are coercible to booleans?</p>
+		<p class="substep" data-order="1">Which values coerce to <code>true</code> and which to <code>false</code>?</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="string-coercion">
+	<div class="content">
+		<h1>String (coercion)</h1>
+		<p class="substep"><b>Nearly every</b> value is string coercible</p>
+		<p class="substep" data-order="1">Simplified internal coercion algorithm:</p>
+		<pre class="substep" data-order="1"><code>function toString(value) {
+  if (value === undefined) return 'undefined';
+  if (value === null) return 'null';
+  return value.toString();
+}</code></pre>
+		<p class="substep" data-order="2">No <code>toString</code> method (or malformed one) means <b>non-coercible</b></p>
+		<p class="substep" data-order="3">Non-coercible valid value example: <code>Object.create(null)</code></p>
+	</div>
+	<aside>
+		<p>Which object values are coercible to strings?</p>
+		<p class="substep" data-order="3">Specification doesn't provide us with non-coercible values, still we're capable to create ones</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="number-coercion">
+	<div class="content">
+		<h1>Number (coercion)</h1>
+		<p><b>Nearly every</b> value is number coercible</p>
+		<p>Simplified internal coercion algorithm:</p>
+		<pre><code>function toNumber(value) {
+  if (value === undefined) return NaN;
+  if (value === null) return 0;
+  if (typeof value === 'boolean') return value ? 1 : 0;
+  if (typeof value === 'string') return stringToNumber(value);
+  if (typeof value === 'number') return value;
+  if (typeof value === 'symbol') <span class="code-error">throw new TypeError()</span>;
+  if (isObject(value.valueOf())) {
+    return stringToNumber(value.toString());
+  }
+  return toNumber(value.valueOf());
+}</code></pre>
+		<p>Non coercible are <code>symbol</code>'s and values with no <code>toString</code> method and no primitive returning <code>valueOf</code> method</p>
+	</div>
+	<aside>
+		<p>Which object values are coercible to numbers?</p>
+		<p>Before ES2015 (and introduction of <code>Symbol</code>) specification didn't provide us with non-coercible values.</p>
+		<p>We're also capable to create non-coercible values on our own</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="operators">
+	<div class="content">
+		<h1>Operators & Implicit Coercion</h1>
+		<p>All (computation based) operators are meant <b>strictly</b> for primitive <b>booleans</b>, <b>strings</b> or <b>numbers</b></p>
+		<p>On operand type mismatch, <b>coercion</b> is made</p>
+		<table class="operands-table">
+			<thead>
+				<tr><th>Operators</th><th>Operands coercion</th><th>Result type</th></tr>
+			</thead>
+			<tbody>
+				<tr><td><code>!</code></td><td>toBoolean</td><td>boolean</td></tr>
+				<tr><td><code>&&</code>, <code>||</code>, <code>?:</code></td><td>toBoolean</td><td><i>one of operands</i></td></tr>
+				<tr><td><code>++</code>, <code>--</code>, <code>+</code> (unary), <code>-</code> (unary), <code>-</code>, <code>~</code>, <code>/</code>, <code>*</code>, <code>%</code>, <code>**</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>&lt;&lt;&lt;</code>, <code>&gt;&gt;&gt;</code>, <code>&amp;</code>, <code>|</code>, <code>^</code>, <code>*=</code>, <code>**=</code>, <code>/=</code>, <code>%=</code>, <code>-=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>, <code>&lt;&lt;&lt;=</code>, <code>&gt;&gt;&gt;=</code>, <code>&amp;=</code>, <code>^=</code>, <code>|=</code></td><td>toNumber</td><td>number</td></tr>
+				<tr><td><code>+=</code>, <code>+</code></td><td>toString or toNumber</td><td>string or number</td></tr>
+				<tr><td><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td><td>toString or toNumber</td><td>boolean</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<aside>
+		<p>Contrary to some other languages, <b>JavaScript doesn't provide any language operators for objects handling</b> as e.g. arrays concatenation, or objects merging.</p>
+		<p>No object dedicated operators and implicit coercion is usually confusing for devs coming from other environments. Nice demonstration of that can be seen in (otherwise excellent) <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> presentation by Gary Bernhardt</a></p>
+	</aside>
+</section>
+
+<section data-bespoke-id="object-coercion">
+	<div class="content">
+		<h1>Object (coercion)</h1>
+		<p><b>Naerly every</b> value is object coercible</p>
+		<p>Simplified internal coercion algorithm:</p>
+		<pre><code>function toObject(value) {
+  if (isAbsent(value)) <span class="code-error">throw new TypeError()</span>;
+  if (typeof value === 'boolean') return new Boolean(value);
+  if (typeof value === 'string') return new String(value);
+  if (typeof value === 'number') return new Number(value);
+  if (typeof value === 'symbol') {
+    return createSymbolObject(value); // Internal
+  }
+  return value; // obviously an object already
+}</code></pre>
+		<p>Non coercible are <code>null</code> and <code>undefined</code></p>
+	</div>
+	<aside>
+		<p>Which values are coercible to objects?</p>
+		<p>All but ones we categorized as <b>absent</b></p>
+		<p>Interestingly while we're not allowed to create <i>object</i> representations of symbol's via <code>new Symbol()</code> construct, the internal <code>toObject</code> algorithm (accessible through <code>Object</code> constructor) is free of that restriction.</p>
+		<p>Important to note is that <code>Object(value)</code> constructor function, doesn't play 1:1 coercion role, as in case of primitive type variants. Difference is that for <b>absent</b> value case it wouldn't crash but return new object instead.</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="callable-duck-typing">
+	<div class="content">
+		<h1>Callable (duck typing)</h1>
+		<p>Any object exposing internal <code>[[Call]]</code> method is <b>callable</b></p>
+		<p>It doesn't have to be an instance of <code>Function</code></p>
+		<p>Some browsers in its host API's exposed callable non <code>Function</code> based objects, e.g. in old version of Safari:</p>
+		<pre><code>typeof element.childNodes; // 'function'
+element.childNodes(1) === element.childNodes[1]</code></pre>
+		<p>In ES2015+ we're free to create non <code>Function</code> based callables:</p>
+		<pre><code>var callable = Object.setPrototypeOf(function () { ... },
+  Object.prototype)</code></pre>
+		<p>Altough use cases are rare, and it's not common practice in user-land</p>
+	</div>
+	<aside>
+		<p>Here using the term "duck typing" is slightly exaggeratitve, as we don't have any mean to access or set a <code>[[Call]]</code> method directly.</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="callable-detection">
+	<div class="content">
+		<h1>Callable (duck typing)</h1>
+		<h2>How to detect a callable object?</h2>
+		<p>In ES5+ implentations:</p>
+		<pre><code>function isCallable(value) {
+  return typeof value === 'function';
+}</code></pre>
+		<p>In ES3 engines, things are rocky, e.g. in IE8:</p>
+		<pre><code>typeof setTimeout; // 'object'</code></pre>
+		<p>but thankfully we have <b>2016</b> already</p>
+	</div>
+	<aside>
+		<p>We don't have a mean to check for existence of <code>[[Call]]</code> directly, but thankfully in ES5+ engines <code>typeof</code> returning <code>'function'</code> runs in pair with that.</p>
+    <p>For older engines, check would have to be more sophisticated. Still as it's a niche thing, and in most cases we do not support those browsers anymore, it's safe to ignore the fact</p>
+	</aside>
+</section>
+
+<section data-bespoke-id="array-like-duck-typing">
+	<div class="content">
+		<h1>Array (duck typing)</h1>
+		<p>Any object exposing a number coercible <code>length</code> property is accepted as an <b>array-like</b></p>
+		<p><i>indexes</i> are normal object properties</p>
+		<p>All native methods which involve <i>arrays</i> in reality are specified to work with <b>array-like</b>'s:</p>
+		<pre><code>var arrayLike = { '0': 'foo', '1': 'bar', length: 2 };
+
+Array.prototype.slice.call(arrayLike, 1); // ['bar']
+
+Array.prototype.pop.call(arrayLike); // 'bar'
+arrayLike; // { '0': 'foo', length: 1 };
+
+Array.prototype.forEach.call(arrayLike, function (value) {
+  console.log(value, index); // 'foo', 0
+});</code></pre>
+	</div>
+	<aside>
+	</aside>
+</section>
+
+<section data-bespoke-id="array-like-detection">
+	<div class="content">
+		<h1>Array (duck typing)</h1>
+		<h2>How to detect an array-like object?</h2>
+		<p>Internally an <b>array-like</b> input and its <code>length</code> are coerced as:</p>
+		<pre><code>function normalizeLength(v) {
+  if (isNaN(v) || (v < 0)) return 0;
+  if (v > Number.MAX_SAFE_INTEGER)) return Number.MAX_SAFE_INTEGER;
+  return Math.round(v);
+};
+var arrayLike = toObject(value);
+var length = normalizeLength(Number(arrayLike.length));</pre></code>
+		<p>So in native implementation scope it's not much more than:</p>
+		<pre><code>function isArrayLike(value) { return !isAbsent(value); }</pre></code>
+		<p>Still it's wise to also demand <code>value.length</code> to be a valid number</p>
+	</div>
+	<aside>
+	</aside>
+</section>
+
+<section data-bespoke-id="iterable-iterator-duck-typing">
+	<div class="content">
+		<h1>Iterable & Iterator (duck typing)</h1>
+		<h2>New prototocols introduced with ES2015</h2>
+		<h3>Iterable</h3>
+		<p>Any object exposing a <code>[Symbol.iterator]</code> method (which is expected to return an <b>iterator</b>) is accepted as <b>iterable</b></p>
+		<h3>Iterator</h3>
+		<p>Any object exposing a <code>next</code> method is accepted as <b>iterator</b></p>
+		<pre><code>var iterable = ['foo', 'bar'];
+var iterator = iterable[Symbol.iterator]();
+iterator.next(); // { done: false, value: 'foo' }
+iterator.next(); // { done: false, value: 'bar' }
+iterator.next(); // { done: true, value: undefined }</code></pre>
+	</div>
+	<aside>
+	</aside>
+</section>
+
+<section data-bespoke-id="iterable-iterator-iteration">
+	<div class="content">
+		<h1>Iterable & Iterator (duck typing)</h1>
+		<p><code>for..of</code> dedicated statement for iterables iteration</p>
+		<pre><code>for (var value of iterable) { ... }</code></pre>
+		<hr />
+		<p>With ES2015 all ES5 native array-like types:</p>
+		<p><code>Array</code>, <code>String</code>, <code>arguments</code></p>
+		<p>Were upgraded to share an <b>iterable</b> protocol</p>
+		<hr />
+		<p>Newly introduced ES2015+ collection types:</p>
+		<p><code>Set</code>, <code>Map</code></p>
+		<p>were introduced purely as <b>iterables</b> (they're not <b>array-like</b>'s)</p>
+	</div>
+	<aside>
+	</aside>
+</section>
+
+<section data-bespoke-id="array-from">
+	<div class="content">
+		<h1>Iterable & Iterator (duck typing)</h1>
+		<p><code>Array.from</code></p>
+	</div>
+	<aside>
+		<p>Ideally we should rely just on iterables now but..</p>
 	</aside>
 </section>
 
