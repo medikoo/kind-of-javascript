@@ -9,10 +9,15 @@ html {
 	-webkit-font-smoothing: antialiased;
 }
 .bespoke-slide {
-	margin-top: -380px;
+	margin-top: 0;
+	top: 0;
 	align-items: stretch;
 	padding: 20px 40px;
-	border: 1px solid;
+	/* border: 1px solid; */
+}
+.bespoke-slide-center h1 {
+	text-align: center;
+	margin-top: 15%;
 }
 h1.h0 {
 	font-size: 112px;
@@ -81,7 +86,8 @@ h1 {
 	text-align: left;
 }
 h1 code {
-	font-size: 60px;
+	font-size: 0.75em;
+	letter-spacing: -0.04em;
 }
 h2 {
 	font-size: 48px;
@@ -126,7 +132,7 @@ table {
 }
 table td, table th {
 	padding: 10px;
-	border: 1px solid rgba(0, 0, 0, 0.1);;
+	border: 2px solid rgba(0, 0, 0, 0.1);;
 }
 table th {
 	background: rgba(0, 0, 0, 0.1);
@@ -265,7 +271,14 @@ div#cover p.links + p img {
 	border: 2px solid #808080;
 	border-bottom: 0;
 }
+#two-non-values h1 {
+	font-size: 70px;
+}
 
 .operands-table {
 	font-size: 16px;
+}
+
+#thank-you h2 {
+	text-align: center;
 }
