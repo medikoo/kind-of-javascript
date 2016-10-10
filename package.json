@@ -12,7 +12,7 @@
     "autoprefixer": "^6.5",
     "bespoke": "^1.1",
     "bespoke-classes": "1",
-    "bespoke-history": "^0.2.1",
+    "bespoke-history": "^0.2.2",
     "bespoke-keys": "^1.1",
     "bespoke-notes": "^2.0.1",
     "bespoke-progress": "1",
