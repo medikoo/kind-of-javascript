@@ -114,9 +114,9 @@
 		<p>Property access:</p>
 		<pre><code>var str = 'foo';
 str.length; // 3
-str.foo; <span class="substep">// undefined</span>
-<span class="substep">str.foo = 'bar';</span><span class="substep" data-order="1"> // no effect
-str.foo; // undefined</span></code></pre>
+str.foo; <span class="substep" data-order="0.5">// undefined</span>
+<span class="substep" data-order="0.5">str.foo = 'bar';</span><span class="substep" data-order="1"> // no effect</span>
+<span class="substep" data-order="0.5">str.foo; // <span class="substep" data-order="1" data-action="remove">?</span></span><span class="substep" data-order="1" data-action="insert">undefined</span</span></code></pre>
 		<p class="substep" data-order="2">Internally is resolved as:</p>
 		<pre class="substep" data-order="2"><code>var str = 'foo';
 (new String(str)).length; // 3
@@ -376,9 +376,9 @@ var length = normalizeLength(toNumber(arrayLike.length));</pre></code>
 	<div class="content">
 		<h1>Iterable & Iterator (duck typing)</h1>
 		<h2>New prototocols introduced with ES2015</h2>
-		<h3 class="substep" data-order="1">Iterable</h3>
+		<h3 class="substep" data-order="0.5">Iterable</h3>
 		<p class="substep" data-order="1">Any object exposing a <code>[Symbol.iterator]</code> method (which is expected to return an <b>iterator</b>) is accepted as <b>iterable</b></p>
-		<h3 class="substep" data-order="2">Iterator</h3>
+		<h3 class="substep" data-order="1.5">Iterator</h3>
 		<p class="substep" data-order="2">Any object exposing a <code>next</code> method (which is expected to return an object coercible value) is accepted as <b>iterator</b></p>
 		<pre class="substep" data-order="3"><code>var iterable = ['foo', 'bar'];
 var iterator = iterable[Symbol.iterator]();
@@ -410,7 +410,7 @@ iterator.next(); // { done: true, value: undefined }</code></pre>
 		<p class="substep" data-order="1">If we look closely, we'll see that array-like is actually a map of "index: value" pairs, while iterable is purely list of "value"'s</p>
 		<p class="substep" data-order="1">It's straightforward to present an <b>array-like</b> as a list of value's, but other way it can't be achieved cleanly</p>
 		<p class="substep" data-order="1">And of course methods that mute array-like, have no possiblity to work with iterables</p>
-		<p class="substep" data-order="2">Still, fact is that ES2015 comes with list taking methods/constructs, where one group works strictly with array-likes and other strictly with iterables. Those innconsistencies make adaptation of new protocols more difficult.</p>
+		<p class="substep" data-order="2">Still, fact is that ES2015 comes with list taking methods/constructs, where one group works strictly with array-likes and other strictly with iterables. Those innconsistencies make adaptation of new protocols more confusing.</p>
 	</aside>
 </section>
 
@@ -466,12 +466,12 @@ promise.then(function (value) {
 		<pre class="substep" data-order="2"><code>var dateLike = {
   valueOf: function () { return 1475929220298; }
 };
-Date.prototype.getDate.call(dateLike); <span class="code-error">TypeError</span></pre></code>
+Date.prototype.getFullYear.call(dateLike); <span class="code-error">TypeError</span></pre></code>
 		<p class="substep" data-order="3">Starting from ES2015 there's a way obtain something close to <i>alike</i>:</p>
 		<pre class="substep" data-order="3"><code>var dateLike = Object.setPrototypeOf(new Date(1475929220298),
   Object.prototype);
-dateLike.getDate; // undefined
-Date.prototype.getDate.call(dateLike); // 8</pre></code>
+dateLike.getFullYear; // undefined
+Date.prototype.getFullYear.call(dateLike); // 2016</pre></code>
 		<p class="substep" data-order="3">But it's not recommended practice, eventual use-cases are rare</p>
 	</div>
 	<aside>
