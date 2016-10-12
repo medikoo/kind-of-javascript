@@ -1,15 +1,13 @@
-<section>
+.<section>
 	<div id="cover" class="content">
 		<h1 class="h0">Kind Of JavaScript</h1>
 		<h2>Mariusz Nowak</h2>
 		<div class="links">
-			<p class="links">
-				<a href="https://twitter.com/medikoo"><img src="/twitter.png" width="50" /> @medikoo</a>
-				<a href="https://github.com/medikoo"><img src="/github.png" width="50" /> github.com/medikoo</a>
-			</p>
-			<p>Consultant at <img src="/unctad.png" width="70" /></p>
+			<p>Consultant at <img src="/unctad.png" width="50" /></p>
+			<p><a href="https://twitter.com/medikoo"><img src="/twitter.png" width="50" /> @medikoo</a></p>
+			<p><a href="https://github.com/medikoo"><img src="/github.png" width="50" /> github.com/medikoo</a></p>
 		</div>
-		<p class="footer">WarsawJS · October 2016 · Warsaw, Poland</p>
+		<p class="footer"><span class="logo"><img src="/warsawjs-logo.png" /><span class="logo-text">WarsawJS</span></span> October 2016 · Warsaw, Poland</p>
 	</div>
 
 	<aside>
@@ -34,9 +32,9 @@
 	<aside>
 		<p>In JavaScript we can seclude three value groups</p>
 		<ul>
-			<li>Primitive non-value: Value representing lack of value</li>
-			<li>Primitive value: Immutable value</li>
-			<li>Object: Mutable object value</li>
+			<li>Primitive non-value: Values representing lack of value</li>
+			<li>Primitive value: Immutable values</li>
+			<li>Object: Mutable object values</li>
 		</ul>
 		<p>Can you tell which JS values belong to which group?</p>
 	</aside>
@@ -83,13 +81,13 @@
 		</ul>
 	</div>
 	<aside>
-		<p>It's common that language needs some form to express "lack of value", why in JavaScript it's represented with two values?</p>
+		<p>It's common that language needs some form to express "lack of value". In JavaScript there are two dedicated values for that. Why?</p>
 		<p class="substep" data-order="1">JavaScript (contrary to most of other languages) doesn't crash when you try to access non existent property, or doesn't provide arguments to function, in such case <code>undefined</code> is returned/passed to receiver</p>
-		<p class="substep" data-order="1">As there was a need to differentiate such cases from ones where we want to intentionally mark some property as having "no-value", an alternative "no-value" <code>null</code> was introduced</p>
+		<p class="substep" data-order="1">As there was a need to differentiate such cases from ones where we want to intentionally mark some property as having "no-value", an alternative <code>null</code> "no-value" was introduced</p>
 	</aside>
 </section>
 
-<section data-bespoke-id="primitive-value-kind">
+<section data-bespoke-id="primitive-value-group">
 	<div class="content">
 		<h1>Primitive value</h1>
 		<ul class="substep" data-order="1">
@@ -101,8 +99,8 @@
 		<hr class="substep" data-order="2" />
 		<ul>
 			<li class="substep" data-order="2">Doesn't have properties or methods</li>
-			<li class="substep" data-order="3">Has alternative object representation</li>
-			<li class="substep" data-order="4">It's prototype based via implied auto object-boxing</li>
+			<li class="substep" data-order="3">Have alternative object representation</li>
+			<li class="substep" data-order="4">Prototype based via implied auto object-boxing</li>
 		</ul>
 	</div>
 	<aside>
@@ -116,27 +114,33 @@
 		<p>Property access:</p>
 		<pre><code>var str = 'foo';
 str.length; // 3
-str.foo; // undefined
-str.foo = 'bar'; // no effect
-str.foo; // undefined</code></pre>
-		<p class="substep" data-order="1">Internally is resolved as:</p>
-		<pre class="substep" data-order="1"><code>var str = 'foo';
+str.foo; <span class="substep">// undefined</span>
+<span class="substep">str.foo = 'bar';</span><span class="substep" data-order="1"> // no effect
+str.foo; // undefined</span></code></pre>
+		<p class="substep" data-order="2">Internally is resolved as:</p>
+		<pre class="substep" data-order="2"><code>var str = 'foo';
 (new String(str)).length; // 3
 (new String(str)).foo; // undefined
 (new String(str)).foo = 'bar'; // no effect
 (new String(str)).foo; // undefined</code></pre>
 	</div>
 	<aside>
+		<p>What happens when we try to access or set a property on primitive value?</p>
+		<p class="substep" data-order="1">It has no effect, why it works that way?</p>
+		<p class="substep" data-order="2">Primitive values have no properties or methods so technically property access should crash for them same way as for primitive non-values.</p>
+		<p class="substep" data-order="2">Still primitive values are backed with object representation, and whenever we try to access a property, internally (per each call) the object representation is created on and on it given property or method is resolved</p>
+		<p class="substep" data-order="2">It may seem highly unoptimal, but mind that real implementations are optimized towards that (what they do reflects specification, but it doesn't mean that under the hood they pollute memory with new objects on every access)</p>
+		<p class="substep" data-order="2">Due to that characteristics, <b>set property</b> operations do not crash, but have no effect either</p>
 	</aside>
 </section>
 
-<section data-bespoke-id="mutable-kind">
+<section data-bespoke-id="object-group">
 	<div class="content">
 		<h1>Object</h1>
 		<p class="substep"><b>... everything else ...</b></p>
 		<hr class="substep" data-order="2" />
 		<ul>
-			<li class="substep" data-order="2" >Unrestricted property host.<br />Unless limited by <code>Object.freeze</code>, <code>Object.preventExtensions</code> or <code>Object.seal</code></li>
+			<li class="substep" data-order="2">Have properties or methods</li>
 			<li class="substep" data-order="3">Prototype based</li>
 			<li class="substep" data-order="4">Extensible (can serve as prototype for other objects)</li>
 		</ul>
@@ -150,12 +154,13 @@ extObject.foo; // 'bar';</code></pre>
 	</div>
 	<aside>
 		<p>Which values qualify as Objects?</p>
+		<p class="substep" data-order="2">Unrestricted property host, unless limited by <code>Object.freeze</code>, <code>Object.preventExtensions</code> or <code>Object.seal</code></p>
 	</aside>
 </section>
 
-<section data-bespoke-id="kind-detection">
+<section data-bespoke-id="value-type-detection">
 	<div class="content">
-		<h1>Value group detection</h1>
+		<h1>Value type detection</h1>
 		<h2 class="substep">Is one of non-values?</h2>
 		<pre class="substep" data-order="1"><code>var isNonValue = function (value) {
   return value == null; // matches only `null` and `undefined`
@@ -171,6 +176,12 @@ extObject.foo; // 'bar';</code></pre>
 		<p class="substep" data-order="1"><code>value == null</code> is the only exception when using <b>sloppy</b> equality operator could be recommended. This expression will match both <code>undefined</code> and <code>null</code></p>
 		<hr  class="substep" data-order="2" />
 		<p class="substep" data-order="2">As <code>typeof value === 'object'</code> matches also <code>null</code>, the check is preceded with confirmation that <code>value</code> is indeed not <code>null</code></p>
+		<hr  class="substep" data-order="2" />
+		<p class="substep" data-order="2">Usually those two checks are all we need, and we don't need third <code>isPrimitiveValue</code> util. All use cases go down to:</p>
+		<ul class="substep" data-order="2">
+			<li>Is a value (not a non-value)?</li>
+			<li>Is an object?</li>
+		</ul>
 	</aside>
 </section>
 
@@ -180,8 +191,8 @@ extObject.foo; // 'bar';</code></pre>
 		<hr />
 	</div>
 	<aside>
-		<p>JavaScript is a dynamic language where type coercion (in case of primitives) and duck typing (in case of objects) play extensive role in internals handling</p>
-		<p>Still that's often are not reflected in user-land utilities and libraries</p>
+		<p>JavaScript is a dynamic language where type coercion (in case of primitives) and duck typing (in case of objects) plays extensive role in internals handling</p>
+		<p>Altough that's often not reflected in user-land utilities and libraries, I believe that acknowledging those mechanisms is very important for fluent work with JavaScript</p>
 		<hr />
 		<p>In further part of presentation I'll focus on all coercion and duck-typing mechanisms implied natively</p>
 	</aside>
@@ -190,13 +201,13 @@ extObject.foo; // 'bar';</code></pre>
 <section data-bespoke-id="boolean-coercion">
 	<div class="content">
 		<h1>Boolean (coercion)</h1>
-		<p class="substep"><b>Every</b> value is a boolean coercible</p>
-		<p class="substep">Values that coerce to <code>false</code> (falsy values):<br />
+		<p class="substep" data-order="1"><b>Every</b> value is a boolean coercible</p>
+		<p class="substep" data-order="2">Values that coerce to <code>false</code> (falsy values):<br />
 			<b><code>false</code></b> (obviously), <b><code>undefined</code></b>, <b><code>null</code></b>, <b><code>""</code></b>, <b><code>0</code></b>, <b><code>NaN</code></b></p>
 		<p class="substep"><i>Everything else coerces to <code>true</code></i></p>
-		<hr class="substep" data-order="1" />
-		<p class="substep" data-order="1">Simplified internal coercion algorithm:</p>
-		<pre class="substep" data-order="1"><code>function toBoolean(value) {
+		<hr class="substep" data-order="3" />
+		<p class="substep" data-order="3">Simplified coercion algorithm:</p>
+		<pre class="substep" data-order="3"><code>function toBoolean(value) {
   if (isNonValue(value)) return false;
   if (value === false) return false;
   if (value === "") return false;
@@ -204,10 +215,18 @@ extObject.foo; // 'bar';</code></pre>
   if (Number.isNaN(value)) return false;
   return true;
 }</code></pre>
+		<p class="substep" data-order="3"><i>Also reflected by: <code>Boolean(value)</code></i></p>
 	</div>
 	<aside>
-		<p>Which object values are coercible to booleans?</p>
+		<p>Which values are coercible to booleans?</p>
 		<p class="substep" data-order="1">Which values coerce to <code>true</code> and which to <code>false</code>?</p>
+		<hr class="substep" data-order="2" />
+		<p class="substep" data-order="2">There is one additional "falsy value" exception in JavaScript ecosystem,  which I didn't mention on a slide, what is that?</p>
+		<p class="substep" data-order="2">It's infamous <code>document.all</code>. History of that goes to IE vs Netscape war era, when developers tend to detect whether they deal with IE by writing: <code>if (document.all)</code>.</p>
+		<p class="substep" data-order="2">When non IE browsers started to ship <code>document.all</code> it appeared that application scripts get into IE mode and crash.</p>
+		<p class="substep" data-order="2">This forced browser implementation authors to make an exception for <code>document.all</code>, they forced <code>typeof</code> to return <code>undefined</code> in its case, and made <code>document.all</code> one of falsy values</p>
+		<p class="substep" data-order="2">Still, for a long time since then usage of <code>document.all</code> is deprecated. You should <b>never</b> rely on that collection, and it's extremely unlikely you'll face it regular work.</p>
+		<p class="substep" data-order="2">Therefore I'd say it's totally safe to not be aware of it :)</p>
 	</aside>
 </section>
 
@@ -215,18 +234,19 @@ extObject.foo; // 'bar';</code></pre>
 	<div class="content">
 		<h1>String (coercion)</h1>
 		<p class="substep"><b>Nearly every</b> value is a string coercible</p>
-		<p class="substep" data-order="1">Simplified internal coercion algorithm:</p>
+		<p class="substep" data-order="1">Simplified coercion algorithm:</p>
 		<pre class="substep" data-order="1"><code>function toString(value) {
   if (value === undefined) return 'undefined';
   if (value === null) return 'null';
   return value.toString();
 }</code></pre>
+		<p class="substep" data-order="1"><i>Also reflected by: <code>String(value)</code></i></p>
 		<p class="substep" data-order="2">No <code>toString</code> method (or malformed one) means <b>non-coercible</b></p>
 		<p class="substep" data-order="3">Valid example of non-coercible value:</p>
 		<pre class="substep" data-order="3"><code>var nonStringCoercible = Object.create(null);</code></pre>
 	</div>
 	<aside>
-		<p>Which object values are coercible to strings?</p>
+		<p>Which values are coercible to strings?</p>
 		<p class="substep" data-order="3">Specification doesn't provide us with non-coercible values, still we're capable to create ones</p>
 	</aside>
 </section>
@@ -236,7 +256,7 @@ extObject.foo; // 'bar';</code></pre>
 		<h1>Number (coercion)</h1>
 		<p class="substep"><b>Nearly every</b> value is number coercible</p>
 		<p class="substep" data-order="1">Simplified internal coercion algorithm:</p>
-		<pre class="substep" data-order="1"><code>function toNumber(value) {
+		<pre class="substep tight" data-order="1"><code>function toNumber(value) {
   if (value === undefined) return NaN;
   if (value === null) return 0;
   if (typeof value === 'boolean') return value ? 1 : 0;
@@ -246,15 +266,17 @@ extObject.foo; // 'bar';</code></pre>
   if (isObject(value.valueOf())) return strToNumber(value.toString());
   return toNumber(value.valueOf());
 }</code></pre>
-		<p class="substep" data-order="2">Non coercible values are:</p>
-		<ul class="substep" data-order="2">
+		<p class="substep tight" data-order="1"><i>Also reflected by: <code>Number(value)</code></i></p>
+		<p class="substep tight" data-order="2">Non coercible values are:</p>
+		<ul class="substep tight" data-order="2">
 			<li><p><code>symbol</code>'s</p></li>
 			<li><p>with no <code>toString</code> and no primitive returning <code>valueOf</code> method</p></li>
 		</ul>
 	</div>
 	<aside>
-		<p>Which object values are coercible to numbers?</p>
-		<p class="substep" data-order="1">Before ES2015 (and introduction of <code>Symbol</code>) specification didn't provide us with non-coercible values.</p>
+		<p>Which values are coercible to numbers?</p>
+		<p class="substep" data-order="2">Before ES2015 (and introduction of <code>Symbol</code>) specification didn't provide us with non-coercible values.</p>
+		<p class="substep" data-order="2">Still I'm not aware of reasons why comitee decided on such special treatment for symbols</p>
 	</aside>
 </section>
 
@@ -297,6 +319,7 @@ extObject.foo; // 'bar';</code></pre>
   }
   return value; // obviously an object already
 }</code></pre>
+		<p class="substep" data-order="1"><i>Nearly reflected by: <code>Object(value)</code></i></p>
 		<p class="substep">Non coercible are <code>null</code> and <code>undefined</code></p>
 	</div>
 	<aside>
@@ -310,10 +333,10 @@ extObject.foo; // 'bar';</code></pre>
 <section data-bespoke-id="array-like-duck-typing">
 	<div class="content">
 		<h1>Array (duck typing)</h1>
-		<p>Any object coercible value with a number coercible <code>length</code> property is accepted as an <b>array-like</b></p>
-		<p><i>indexes</i> are normal object properties</p>
-		<p>All native methods which involve working with <i>arrays</i> in reality are specified to work with <b>array-like</b>'s:</p>
-		<pre><code>var arrayLike = { '0': 'foo', '1': 'bar', length: 2 };
+		<p class="substep" data-order="1">Any object coercible value with a number coercible <code>length</code> property is accepted as an <b>array-like</b></p>
+		<p class="substep" data-order="1"><i>indexes</i> are normal object properties</p>
+		<p class="substep" data-order="1">All native methods which involve working with <i>arrays</i> in reality are specified to work with <b>array-like</b>'s:</p>
+		<pre class="substep" data-order="1"><code>var arrayLike = { '0': 'foo', '1': 'bar', length: 2 };
 
 Array.prototype.slice.call(arrayLike, 1); // ['bar']
 
@@ -325,6 +348,7 @@ Array.prototype.forEach.call(arrayLike, function (value) {
 });</code></pre>
 	</div>
 	<aside>
+		<p>What kind of values are accepted as <i>Array</i>'s, wheb we pass them to methods that expect arrays?</p>
 	</aside>
 </section>
 
@@ -342,9 +366,9 @@ var arrayLike = toObject(value);
 var length = normalizeLength(toNumber(arrayLike.length));</pre></code>
 		<p class="substep" data-order="2">So in native implementation scope it's not much more than:</p>
 		<pre class="substep" data-order="2"><code>function isArrayLike(value) { return !isNonValue(value); }</pre></code>
-		<p class="substep" data-order="2">Still (in our API's) it's wise to also demand a <code>value.length</code> to be a valid (and within range) number</p>
 	</div>
 	<aside>
+		<p class="substep" data-order="2">Still in our API's for early error detection it's wise to also demand a <code>value.length</code> to be a valid (and within range) number</p>
 	</aside>
 </section>
 
@@ -381,13 +405,19 @@ iterator.next(); // { done: true, value: undefined }</code></pre>
 		<p class="substep" data-order="2">Were introduced purely as <b>iterables</b> (they're not <b>array-like</b>'s)</p>
 	</div>
 	<aside>
+		<p class="substep" data-order="1">It's important to note, that methods that take array-likes were not upgraded to support <code>iterables</code>, and that applies to also newly introduced methods as e.g. <code>find</code></p>
+		<p class="substep" data-order="1">Reason for that is probably slight incompatibility problem between two protocols</p>
+		<p class="substep" data-order="1">If we look closely, we'll see that array-like is actually a map of "index: value" pairs, while iterable is purely list of "value"'s</p>
+		<p class="substep" data-order="1">It's straightforward to present an <b>array-like</b> as a list of value's, but other way it can't be achieved cleanly</p>
+		<p class="substep" data-order="1">And of course methods that mute array-like, have no possiblity to work with iterables</p>
+		<p class="substep" data-order="2">Still, fact is that ES2015 comes with list taking methods/constructs, where one group works strictly with array-likes and other strictly with iterables. Those innconsistencies make adaptation of new protocols more difficult.</p>
 	</aside>
 </section>
 
 <section data-bespoke-id="array-from">
 	<div class="content">
 		<h1>Array-Like & Iterable</h1>
-		<p>In API's we write we should support both: <b>array-like</b>'s and <b>iterable</b>'s</p>
+		<p>In API's we write we should support both <b>array-like</b>'s and <b>iterable</b>'s</p>
 		<p>How to achieve it cleanly?</p>
 		<p class="substep" data-order="1">Rely on <b><code>Array.from</code></b>:</p>
 		<pre class="substep" data-order="1"><code>var arrayLikeAndIterable = Array.from(arrayLikeOrIterable)</code></pre>
@@ -397,7 +427,12 @@ iterator.next(); // { done: true, value: undefined }</code></pre>
 });</code></pre>
 	</div>
 	<aside>
-		<p>Ideally we should rely just on iterables now but..</p>
+		<p>Ideally "list" speaking we should rely just on iterables now but:<p>
+		<ul>
+			<li>We still need to deal with <code>array-like</code> based host API's (e.g. DOM) which didn't upgrade to iterable
+			<li>Same way in many user libraries we rely on, iterable protocol was not adopted</p>
+		</ul>
+		<p>That situation forces us now to deal with both kinds</p>
 	</aside>
 </section>
 
@@ -427,6 +462,7 @@ promise.then(function (value) {
 		<h1>Other types</h1>
 		<p class="substep" data-order="1">(Internally) Recognized purely by <i>internal slots</i></p>
 		<p class="substep" data-order="1"><b>Can be created only through dedicated native constructors</b></p>
+		<p class="substep" data-order="2">We can't mimic them:</p>
 		<pre class="substep" data-order="2"><code>var dateLike = {
   valueOf: function () { return 1475929220298; }
 };
@@ -439,8 +475,10 @@ Date.prototype.getDate.call(dateLike); // 8</pre></code>
 		<p class="substep" data-order="3">But it's not recommended practice, eventual use-cases are rare</p>
 	</div>
 	<aside>
-		<p>There's no way to create something that looks like e.g. <code>Date</code> or <code>Set</code> and will work with native <code>Date</code> or <code>Set</code> methods.</p>
-		<p>Internally recognized purely by <i>internal slots</i> which are assigned to them through constructor based creation.</p>
+		<p>In case of other types there's no duck-typing (at least on surface level) involved</p>
+		<p>How value detection works there?</p>
+		<p class="substep" data-order="3">Internally recognized purely by <i>internal slots</i> which are assigned to them through constructor based creation.</p>
+		<p class="substep" data-order="3">There's no way to create something that looks like e.g. <code>Date</code> or <code>Set</code> and will work with native <code>Date</code> or <code>Set</code> methods.</p>
 	</aside>
 </section>
 
@@ -455,7 +493,7 @@ element.childNodes(1) === element.childNodes[1]</code></pre>
 		<p class="substep" data-order="1">In ES3 engines, things were even more rocky, e.g. in IE8:</p>
 		<pre class="substep" data-order="1"><code>typeof setTimeout; // 'object'</code></pre>
 		<hr class="substep" data-order="2" />
-		<p class="substep" data-order="2">I'm not aware of on non <code>Function</code> based callable objects in latest versions of popular engines</p>
+		<p class="substep" data-order="2">Luckily, I'm not aware of on non <code>Function</code> based callable objects in latest versions of popular engines</p>
 	</div>
 	<aside>
 	</aside>

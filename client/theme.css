@@ -124,6 +124,9 @@ p, ul, ol, table {
 	/* text-shadow: -1px -1px 2px rgba(0, 0, 0,0.5); */
 	font-size: 24px;
 }
+p.tight, ul.tight, ol.tight, table.tight, pre.tight {
+	margin:  0 0 10px 0;
+}
 table td, table th {
 	text-align: left;
 }
@@ -159,6 +162,9 @@ li a img {
 ul p, ol p {
 	margin: 0 0 5px;
 }
+ul.tight p, ol.tight p {
+	margin: 0;
+}
 ul p + pre, ol p + pre {
 	margin-top: 15px;
 }
@@ -190,7 +196,12 @@ aside {
 	font-size: 1.5em;
 	text-align: left;
 }
-p.footer { font-size: 22px; text-align: center; margin-top: 56px; }
+p.footer {
+	font-size: 22px;
+	text-align: center;
+	margin-top: 80px;
+	padding-left: 100px;
+}
 
 a, a:link {
 	text-decoration: none;
@@ -216,18 +227,21 @@ div.log {
 div#cover h2 {
 	font-style: normal;
 	font-size: 60px;
-	text-align: center;
+	text-align: right;
+	padding-right: 60px;
+	margin-bottom: 10px;
 }
 div#cover div.links {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	padding-left: 50%;
+	padding-right: 60px;
+}
+div#cover div.links p {
+	text-align: right;
+	margin-bottom: 10px;
+
 }
 div#cover div.links img {
 	vertical-align: middle;
-}
-div#cover p.links {
-	text-align: left;
 }
 div#cover p.links a {
 	display: block;
@@ -240,6 +254,19 @@ div#cover p.links + p {
 }
 div#cover p.links + p img {
 	margin: 0 10px;
+}
+
+.logo {
+	position: relative;
+}
+.logo img {
+	position: absolute;
+	bottom: 0;
+	right: 20px;
+	width: 260px;
+}
+.logo-text {
+	visibility: hidden;
 }
 
 /* Value kinds */
