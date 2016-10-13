@@ -15,6 +15,10 @@ html {
 	padding: 20px 40px;
 	/* border: 1px solid; */
 }
+.bespoke-scale-parent {
+	/* Needed after above changes for FF */
+	position: static;
+}
 .bespoke-slide-center h1 {
 	text-align: center;
 	margin-top: 15%;
