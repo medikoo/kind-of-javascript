@@ -167,7 +167,7 @@ extObject.foo; // 'bar'</code></pre>
 }</code></pre>
 		<h2 class="substep">Is object?</h2>
 		<pre class="substep" data-order="2"><code>var isObject = function (value) {
-  return (value !== null) &&
+  return (value !== null) &amp;&amp;
     ((typeof value === 'object') ||
       (typeof value === 'function'));
 }</code></pre>
@@ -187,7 +187,7 @@ extObject.foo; // 'bar'</code></pre>
 
 <section data-bespoke-id="type-coercion" class="bespoke-slide-center">
 	<div class="content">
-		<h1>Type Coercion & Duck Typing</h1>
+		<h1>Type Coercion &amp; Duck Typing</h1>
 		<hr />
 	</div>
 	<aside>
@@ -282,7 +282,7 @@ extObject.foo; // 'bar'</code></pre>
 
 <section data-bespoke-id="operators">
 	<div class="content">
-		<h1>Operators & Implicit Coercion</h1>
+		<h1>Operators &amp; Implicit Coercion</h1>
 		<p class="substep" data-order="1">Computation based operators are meant <b>strictly</b> for primitive <b>booleans</b>, <b>strings</b> or <b>numbers</b></p>
 		<p class="substep" data-order="1">On operand type mismatch <b>coercion</b> occurs</p>
 		<table class="operands-table substep" data-order="1">
@@ -291,7 +291,7 @@ extObject.foo; // 'bar'</code></pre>
 			</thead>
 			<tbody>
 				<tr><td><code>!</code></td><td>toBoolean</td><td>boolean</td></tr>
-				<tr><td><code>&&</code>, <code>||</code>, <code>?:</code></td><td>toBoolean</td><td><i>one of operands</i></td></tr>
+				<tr><td><code>&amp;&amp;</code>, <code>||</code>, <code>?:</code></td><td>toBoolean</td><td><i>one of operands</i></td></tr>
 				<tr><td><code>++</code>, <code>--</code>, <code>+</code> (unary), <code>-</code> (unary), <code>-</code>, <code>~</code>, <code>/</code>, <code>*</code>, <code>%</code>, <code>**</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>&lt;&lt;&lt;</code>, <code>&gt;&gt;&gt;</code>, <code>&amp;</code>, <code>|</code>, <code>^</code>, <code>*=</code>, <code>**=</code>, <code>/=</code>, <code>%=</code>, <code>-=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>, <code>&lt;&lt;&lt;=</code>, <code>&gt;&gt;&gt;=</code>, <code>&amp;=</code>, <code>^=</code>, <code>|=</code></td><td>toNumber</td><td>number</td></tr>
 				<tr><td><code>+=</code>, <code>+</code></td><td>toString or toNumber</td><td>string or number</td></tr>
 				<tr><td><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td><td>toString or toNumber</td><td>boolean</td></tr>
@@ -374,7 +374,7 @@ var length = normalizeLength(toNumber(arrayLike.length));</pre></code>
 
 <section data-bespoke-id="iterable-iterator-duck-typing">
 	<div class="content">
-		<h1>Iterable & Iterator (duck typing)</h1>
+		<h1>Iterable &amp;Iterator (duck typing)</h1>
 		<h2>New protocols introduced with ES2015</h2>
 		<h3 class="substep" data-order="0.5">Iterable</h3>
 		<p class="substep" data-order="1">Any object exposing a <code>[Symbol.iterator]</code> method (which is expected to return an <b>iterator</b>) is accepted as <b>iterable</b></p>
@@ -392,7 +392,7 @@ iterator.next(); // { done: true, value: undefined }</code></pre>
 
 <section data-bespoke-id="iterable-iterator-iteration">
 	<div class="content">
-		<h1>Iterable & Iterator (duck typing)</h1>
+		<h1>Iterable &amp;Iterator (duck typing)</h1>
 		<p><code>for..of</code> dedicated statement to iterate over iterators</p>
 		<pre><code>for (var value of iterable) { ... }</code></pre>
 		<hr class="substep" data-order="1" />
@@ -416,7 +416,7 @@ iterator.next(); // { done: true, value: undefined }</code></pre>
 
 <section data-bespoke-id="array-from">
 	<div class="content">
-		<h1>Array-Like & Iterable</h1>
+		<h1>Array-Like &amp;Iterable</h1>
 		<p>In API's we write we should support both <b>array-like</b>'s and <b>iterable</b>'s</p>
 		<p>How to achieve it cleanly?</p>
 		<p class="substep" data-order="1">Rely on <b><code>Array.from</code></b>:</p>
